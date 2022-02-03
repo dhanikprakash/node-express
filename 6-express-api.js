@@ -1,4 +1,4 @@
-const {products } = require('./data');
+const {products, people } = require('./data');
 const express = require('express');
 const app = express();
 const logger  = require('./logger');
@@ -15,12 +15,16 @@ app.get('/api/products/', (req,res) => {
         const {id, name, price } = product
         return {id, name, price}
     })
-    res.json(response);
+    res.status(200).json({ success: true, data:response });
+})
+
+app.get('/api/people', (req,res) => {
+    res.json(people);
 })
 
 app.get('*', (req,res) => {
     res.sendStatus(404);
 })
-app.listen(5000, () => {
+app.listen(5001, () => {
     console.log('Api server listening on port 5000');
 });
